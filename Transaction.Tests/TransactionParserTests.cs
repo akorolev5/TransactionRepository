@@ -1,10 +1,11 @@
+using NUnit.Framework;
 using Transaction.Application.Services;
 
 namespace Transaction.Tests
 {
     public class TransactionParserTests
     {
-        [Test(Description = "TryParseDateTimeValue - ������� ���� � ���������� �������� �������� ������")]
+        [Test(Description = "TryParseDateTimeValue - парсинг даты с нормальным форматом проходит штатно")]
         public void TransactionParser_TryParseDateTimeValue_WithCorrectData_SholdParseNormally()
         {
             // Arrange
@@ -20,7 +21,7 @@ namespace Transaction.Tests
             Assert.That(parsedDate.Equals(new DateTime(2024, 4, 12, 11, 12, 34)));
         }
 
-        [Test(Description = "TryParseDateTimeValue - ������� ���� � ������������ �������� ��������")]
+        [Test(Description = "TryParseDateTimeValue - парсинг даты с некорректным форматом ломается")]
         public void TransactionParser_TryParseDateTimeValue_WithIncorrectData_SholdBeNotParse()
         {
             // Arrange
@@ -35,7 +36,7 @@ namespace Transaction.Tests
             Assert.IsFalse(parseResult);
         }
 
-        [Test]
+        [Test(Description = "TryParseIntValue - парсинг некорректного числа должен падать")]
         public void TransactionParser_TryParseIntValue_WithIncorrectData_SholdBeNotParse()
         {
             // Arrange
@@ -50,7 +51,7 @@ namespace Transaction.Tests
             Assert.IsFalse(parseResult);
         }
 
-        [Test]
+        [Test(Description = "TryParseIntValue - парсинг корректного числа должен работать нормально")]
         public void TransactionParser_TryParseIntValue_WithCorrectData_SholdBeParse()
         {
             // Arrange
@@ -66,7 +67,7 @@ namespace Transaction.Tests
             Assert.That(parsedInt.Equals(123));
         }
 
-        [Test]
+        [Test(Description = "TryParseDecimalValue - парсинг корректного числа должен работать нормально")]
         public void TransactionParser_TryParseDecimalValue_WithCorrectData_SholdBeParse()
         {
             // Arrange
@@ -79,10 +80,10 @@ namespace Transaction.Tests
 
             // Assert
             Assert.IsTrue(parseResult);
-            Assert.That(parsedDecimal.Equals(123.42));
+            Assert.That(parsedDecimal.Equals(new decimal(123.42)));
         }
 
-        [Test]
+        [Test(Description = "TryParseDecimalValue - парсинг некорректного числа должен падать")]
         public void TransactionParser_TryParseDecimalValue_WithIncorrectData_SholdBeNotParse()
         {
             // Arrange
